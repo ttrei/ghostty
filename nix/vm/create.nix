@@ -1,6 +1,7 @@
 {
   system,
   nixpkgs,
+  home-manager,
   overlay,
   module,
   common ? ./common.nix,
@@ -35,6 +36,27 @@ in
         };
 
         system.stateVersion = nixpkgs.lib.trivial.release;
+
+        home-manager.users.ghostty =
+          { pkgs, ... }:
+          {
+            home.stateVersion = nixpkgs.lib.trivial.release;
+            home.packages = with pkgs; [
+              atuin
+              ghostty
+            ];
+            programs.bash.enable = true;
+            programs.atuin = {
+              enable = true;
+              enableBashIntegration = true;
+            };
+          };
+
+      }
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
       }
       common
       module

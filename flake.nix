@@ -8,6 +8,11 @@
     nixpkgs.url = "https://channels.nixos.org/nixos-25.05/nixexprs.tar.xz";
     flake-utils.url = "github:numtide/flake-utils";
 
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Used for shell.nix
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -35,6 +40,7 @@
   outputs = {
     self,
     nixpkgs,
+    home-manager,
     zig,
     zon2nix,
     ...
@@ -72,7 +78,7 @@
             runVM = (
               module: let
                 vm = import ./nix/vm/create.nix {
-                  inherit system module nixpkgs;
+                  inherit system module nixpkgs home-manager;
                   overlay = self.overlays.debug;
                 };
                 program = pkgs.writeShellScript "run-ghostty-vm" ''
