@@ -170,11 +170,11 @@ in
       };
     }
     {
-      name = "N-V-__8AAMJWXQSVe0xzU_4UVRTDVERqnNpQU4wfS0FRGRRj";
+      name = "N-V-__8AAGHcWgTaKLjwmFkxToNT4jgz5VXUHR7hz8TQ2_AS";
       path = fetchZigArtifact {
         name = "iterm2_themes";
-        url = "https://github.com/mbadolato/iTerm2-Color-Schemes/archive/10f216f54a32cee6f1f2e3aa01812650a209c16b.tar.gz";
-        hash = "sha256-TcrTZUCVetvAFGX0fBqg3zlG90flljScNr/OYR/MJ5Y=";
+        url = "https://github.com/mbadolato/iTerm2-Color-Schemes/archive/6fa671fdc1daf1fcfa025cb960ffa3e7373a2ed8.tar.gz";
+        hash = "sha256-g9o2CIc/TfWYoUS/l/HP5KZECD7qNsdQUlFruaKkVz4=";
       };
     }
     {
@@ -186,11 +186,11 @@ in
       };
     }
     {
-      name = "libxev-0.0.0-86vtc-ziEgDbLP0vihUn1MhsxNKY4GJEga6BEr7oyHpz";
+      name = "libxev-0.0.0-86vtcyMBEwA-UpcjfOICyI2GYG8o6MiRbinS1_8g1_rw";
       path = fetchZigArtifact {
         name = "libxev";
-        url = "https://github.com/mitchellh/libxev/archive/3df9337a9e84450a58a2c4af434ec1a036f7b494.tar.gz";
-        hash = "sha256-oKZqA9d79jHnp/HsqJWQE33Ffn5Ee5G4VnlQepQuY4o=";
+        url = "https://github.com/mitchellh/libxev/archive/75a10d0fb374e8eb84948dcfc68d865e755e59c2.tar.gz";
+        hash = "sha256-/CSKSuZZfn0aIQlVZ0O8ch5O4gCajYBTTuoetRdo0n4=";
       };
     }
     {
@@ -282,11 +282,11 @@ in
       };
     }
     {
-      name = "z2d-0.6.1-j5P_HlerCgBokMgrkl9QhJUKXuZWBGdPnH7cSXwv_ScW";
+      name = "z2d-0.7.0-j5P_Hg_DDACq-2H2Zh7rAq6_TXWdQzv7JAUfnrdeDosg";
       path = fetchZigArtifact {
         name = "z2d";
-        url = "https://github.com/vancluever/z2d/archive/1bf4bc81819385f4b24596445c9a7cf3b3592b08.tar.gz";
-        hash = "sha256-wiJs6/LUiy+ApC5s7VPypbBukjBr4vjx3v/l9OrT70U=";
+        url = "https://github.com/vancluever/z2d/archive/8bbd035f4101f02b1d27947def0d7da3215df7fe.tar.gz";
+        hash = "sha256-wfadegeixcbgxRzRtf6M2H34CTuvDM22XVIhuufFBG4=";
       };
     }
     {
@@ -314,11 +314,11 @@ in
       };
     }
     {
-      name = "zig_objc-0.0.0-Ir_Sp3TyAADEVRTxXlScq3t_uKAM91MYNerZkHfbD0yt";
+      name = "zig_objc-0.0.0-Ir_SpwsPAQBJgi9YRm2ubJMfdoysSq5gKpsIj3izQ8Zk";
       path = fetchZigArtifact {
         name = "zig_objc";
-        url = "https://github.com/mitchellh/zig-objc/archive/3ab0d37c7d6b933d6ded1b3a35b6b60f05590a98.tar.gz";
-        hash = "sha256-zn1tR6xhSmDla4UJ3t+Gni4Ni3R8deSK3tEe7DGzNXw=";
+        url = "https://github.com/mitchellh/zig-objc/archive/c9e917a4e15a983b672ca779c7985d738a2d517c.tar.gz";
+        hash = "sha256-o3vl7qfkSi0bKXa6JWuF92qMEGP8Af/shcip5nRo5Nw=";
       };
     }
     {

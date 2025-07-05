@@ -112,6 +112,9 @@ class AppDelegate: NSObject,
     /// The observer for the app appearance.
     private var appearanceObserver: NSKeyValueObservation? = nil
 
+    /// Signals
+    private var signals: [DispatchSourceSignal] = []
+
     /// The custom app icon image that is currently in use.
     @Published private(set) var appIcon: NSImage? = nil {
         didSet {
@@ -249,6 +252,9 @@ class AppDelegate: NSObject,
 
         // Setup our menu
         setupMenuImages()
+
+        // Setup signal handlers
+        setupSignals()
     }
 
     func applicationDidBecomeActive(_ notification: Notification) {
@@ -384,10 +390,17 @@ class AppDelegate: NSObject,
             config.workingDirectory = filename
             _ = TerminalController.newTab(ghostty, withBaseConfig: config)
         } else {
-            // When opening a file, open a new window with that file as the command,
-            // and its parent directory as the working directory.
-            config.command = filename
+            // When opening a file, we want to execute the file. To do this, we
+            // don't override the command directly, because it won't load the
+            // profile/rc files for the shell, which is super important on macOS
+            // due to things like Homebrew. Instead, we set the command to
+            // `<filename>; exit` which is what Terminal and iTerm2 do.
+            config.initialInput = "\(filename); exit\n"
+
+            // Set the parent directory to our working directory so that relative
+            // paths in scripts work.
             config.workingDirectory = (filename as NSString).deletingLastPathComponent
+
             _ = TerminalController.newWindow(ghostty, withBaseConfig: config)
         }
 
@@ -397,6 +410,34 @@ class AppDelegate: NSObject,
     /// This is called for the dock right-click menu.
     func applicationDockMenu(_ sender: NSApplication) -> NSMenu? {
         return dockMenu
+    }
+
+    /// Setup signal handlers
+    private func setupSignals() {
+        // Register a signal handler for config reloading. It appears that all
+        // of this is required. I've commented each line because its a bit unclear.
+        // Warning: signal handlers don't work when run via Xcode. They have to be
+        // run on a real app bundle.
+
+        // We need to ignore signals we register with makeSignalSource or they
+        // don't seem to handle.
+        signal(SIGUSR2, SIG_IGN)
+
+        // Make the signal source and register our event handle. We keep a weak
+        // ref to ourself so we don't create a retain cycle.
+        let sigusr2 = DispatchSource.makeSignalSource(signal: SIGUSR2, queue: .main)
+        sigusr2.setEventHandler { [weak self] in
+            guard let self else { return }
+            Ghostty.logger.info("reloading configuration in response to SIGUSR2")
+            self.ghostty.reloadConfig()
+        }
+
+        // The signal source starts unactivated, so we have to resume it once
+        // we setup the event handler.
+        sigusr2.resume()
+
+        // We need to keep a strong reference to it so it isn't disabled.
+        signals.append(sigusr2)
     }
 
     /// Setup all the images for our menu items.
